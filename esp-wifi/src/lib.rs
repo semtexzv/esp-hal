@@ -231,18 +231,18 @@ pub fn initialize(
     clocks: &Clocks,
 ) -> Result<EspWifiInitialization, InitializationError> {
     #[cfg(any(esp32, esp32s3, esp32s2))]
-    const MAX_CLOCK: u32 = 240;
+    const REQUIRE_CLOCK: u32 = 240;
 
     #[cfg(any(esp32c3, esp32c6))]
-    const MAX_CLOCK: u32 = 160;
+    const REQUIRE_CLOCK: u32 = 80;
 
     #[cfg(esp32c2)]
-    const MAX_CLOCK: u32 = 120;
+    const REQUIRE_CLOCK: u32 = 120;
 
     #[cfg(esp32h2)]
-    const MAX_CLOCK: u32 = 96;
+    const REQUIRE_CLOCK: u32 = 96;
 
-    if clocks.cpu_clock != MegahertzU32::MHz(MAX_CLOCK) {
+    if clocks.cpu_clock != MegahertzU32::MHz(REQUIRE_CLOCK) {
         return Err(InitializationError::WrongClockConfig);
     }
 
